@@ -1,0 +1,53 @@
+[project]
+name = "demo_soc"
+
+[top]
+module = "soc_top"
+file   = "test/top/soc_top.v"
+
+[[submodules]]
+module = "sub_module"
+file   = "test/rtl/sub_module.v"
+update = true
+count  = 1
+
+[[submodules]]
+module = "axi_slave"
+file   = "test/rtl/axi_slave.v"
+update = true
+count  = 2
+
+[[params]]
+insts = ["u01_axi_slave_0"]
+rules = [["DATA_W", 32], ["ADDR_W", 64]]
+
+[[params]]
+insts = ["u01_axi_slave_1"]
+rules = [["DATA_W", 64], ["ADDR_W", 128]]
+
+[[wires]]
+scope      = "general"
+auto_match = true
+
+[[wires]]
+scope = "inst"
+insts = ["u00_sub_module_0"]
+rules = [
+    ["error", "1'b0"],
+]
+
+[[wires]]
+scope = "inst"
+insts = ["u01_axi_slave_0"]
+rules = [
+    ["bready", ""],
+]
+
+[[wires]]
+scope = "inst"
+insts = ["u01_axi_slave_0", "u01_axi_slave_1"]
+rules = [
+    ["awaddr",  "m_axi_awaddr_{inst_idx}"],
+    ["awvalid", "m_axi_awvalid_{inst_idx}"],
+    ["awready", "m_axi_awready_{inst_idx}"],
+]
