@@ -110,9 +110,9 @@ def _build_skeleton(module_name: str, instances: list, params_config: list) -> s
         if inst.get("params"):
             param_parts = []
             for k, v in inst["params"].items():
-                param_parts.append('.' + k + '(' + v + ')')
+                param_parts.append('.' + k + '(' + str(v) + ')')
             params_block = " #(\n    " + ",\n    ".join(param_parts) + "\n  )"
-            params_comment = ", " + ", ".join(k + '=' + v for k, v in inst["params"].items())
+            params_comment = ", " + ", ".join(k + '=' + str(v) for k, v in inst["params"].items())
 
         inst_lines.append(INST_TEMPLATE.format(
             inst_name=inst["name"],

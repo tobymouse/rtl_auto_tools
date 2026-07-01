@@ -184,7 +184,7 @@ class InstanceBlock:
         lines = ["#("]
         for i, (name, val) in enumerate(params):
             comma = "," if i < len(params) - 1 else ""
-            lines.append(indent + '.' + name + '(' + val + ')' + comma)
+            lines.append(indent + '.' + name + '(' + str(val) + ')' + comma)
         lines.append(")")
         return "\n".join(lines)
 
